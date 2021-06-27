@@ -1,5 +1,6 @@
 class ScoresController < ApplicationController
     before_action :set_score, only: [:show, :destroy]
+    before_action :score_params, only: [:create]
 
     rescue_from ActionController::ParameterMissing do |e|
         render json: { error: e.original_message }, status: :unprocessable_entity
@@ -18,12 +19,12 @@ class ScoresController < ApplicationController
 
     # POST /scores
     def create
-        puts score_params
-        puts params[:player][:name]
+        #puts score_params
+        #puts params[:player][:name]
         @player = Player.where(name: params[:player][:name]).first_or_create 
-        puts @player
+        #puts @player
         @score = @player.scores.create!(score_params)
-        puts @score
+        #puts @score
         json_response(@score, :created)
     end
 

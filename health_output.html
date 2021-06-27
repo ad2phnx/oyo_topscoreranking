@@ -1,45 +1,21 @@
-Run options: include {:full_description=>/POST/}
-{"score"=>"45", "time"=>"January 1, 2021"}
-John Smith
-#<Player:0x0000561c065269a8>
-#<Score:0x0000561c0655c260>
-.FF
+..................F
 
 Failures:
 
   1) Scores POST /scores when an invalid request returns status code 422
      Failure/Error: expect(response).to have_http_status(422)
-       expected the response to have status code 422 but it was 200
-     # ./spec/requests/scores_spec.rb:70:in `block (4 levels) in <top (required)>'
+       expected the response to have status code 422 but it was 500
+     # ./spec/requests/scores_spec.rb:70:in `block (4 levels) in <main>'
      # ./spec/rails_helper.rb:63:in `block (3 levels) in <top (required)>'
      # /usr/local/bundle/gems/database_cleaner-core-2.0.1/lib/database_cleaner/strategy.rb:30:in `cleaning'
      # /usr/local/bundle/gems/database_cleaner-core-2.0.1/lib/database_cleaner/cleaners.rb:34:in `block (2 levels) in cleaning'
      # /usr/local/bundle/gems/database_cleaner-core-2.0.1/lib/database_cleaner/cleaners.rb:35:in `cleaning'
      # ./spec/rails_helper.rb:62:in `block (2 levels) in <top (required)>'
 
-  2) Scores POST /scores when an invalid request returns a failure message
-     Failure/Error:
-       expect(response.body).to include_json(
-         error: 'param is missing or the value is empty: player'
-       )
-
-                 json atom at path "error" is not equal to expected value:
-
-                   expected: "param is missing or the value is empty: player"
-                        got: "param is missing or the value is empty: player\nDid you mean?  action\n               controller"
-                 
-     # ./spec/requests/scores_spec.rb:74:in `block (4 levels) in <top (required)>'
-     # ./spec/rails_helper.rb:63:in `block (3 levels) in <top (required)>'
-     # /usr/local/bundle/gems/database_cleaner-core-2.0.1/lib/database_cleaner/strategy.rb:30:in `cleaning'
-     # /usr/local/bundle/gems/database_cleaner-core-2.0.1/lib/database_cleaner/cleaners.rb:34:in `block (2 levels) in cleaning'
-     # /usr/local/bundle/gems/database_cleaner-core-2.0.1/lib/database_cleaner/cleaners.rb:35:in `cleaning'
-     # ./spec/rails_helper.rb:62:in `block (2 levels) in <top (required)>'
-
-Finished in 20.52 seconds (files took 5.76 seconds to load)
-3 examples, 2 failures
+Finished in 1 minute 26.15 seconds (files took 17.33 seconds to load)
+19 examples, 1 failure
 
 Failed examples:
 
 rspec ./spec/requests/scores_spec.rb:69 # Scores POST /scores when an invalid request returns status code 422
-rspec ./spec/requests/scores_spec.rb:73 # Scores POST /scores when an invalid request returns a failure message
 

@@ -4,13 +4,9 @@ RSpec.describe "Scores", type: :request do
 
   # Init test data
   let!(:player1) { create(:player) }
-  let!(:player2) { create(:player) }
   let!(:scores1) { create_list(:score, 20, player_id: player1.id) }
-  let!(:scores2) { create_list(:score, 20, player_id: player2.id) }
   let(:player1_id) { player1.id }
-  let(:player2_id) { player2.id }
   let(:id1) { scores1.first.id }
-  let(:id2) { scores2.first.id }
 
   describe 'GET /scores' do
     before { get "/scores" }
@@ -20,7 +16,7 @@ RSpec.describe "Scores", type: :request do
     end
 
     it 'returns all scores' do
-      expect(json.size).to eq(40)
+      expect(json.size).to eq(20)
     end
   end
 
@@ -31,7 +27,6 @@ RSpec.describe "Scores", type: :request do
       it 'returns the score' do
         expect(json).not_to be_empty
         expect(json['id']).to eq(id1)
-        expect(json['id']).to_not eq(id2)
       end
 
       it 'returns status code 200' do
@@ -40,7 +35,7 @@ RSpec.describe "Scores", type: :request do
     end
 
     context 'when record does not exist' do
-      let(:id1) { 100 }
+      let(:id1) { 10000 }
 
       it 'returns status code 404' do
         expect(response).to have_http_status(404)

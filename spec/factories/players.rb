@@ -1,6 +1,6 @@
 # spec/factories/players.rb
 FactoryBot.define do
     factory :player do
-        name { Faker::Movies::StarWars.character }
+        name { Faker::Name.unique.name }
     end
 end
