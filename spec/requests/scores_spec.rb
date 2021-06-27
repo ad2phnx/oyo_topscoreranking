@@ -53,7 +53,7 @@ RSpec.describe "Scores", type: :request do
   end
 
   describe 'POST /scores' do
-    let(:valid_attributes) { { name: 'John Smith', score: 45, time: 'January 1, 2021' } }
+    let(:valid_attributes) { { player: { name: 'John Smith'}, score: 45, time: 'January 1, 2021' } }
 
     context 'when request attributes are valid' do
       before { post "/scores", params: valid_attributes }
@@ -63,16 +63,18 @@ RSpec.describe "Scores", type: :request do
       end
     end
 
-    #context 'when an invalid request' do
-    #  before { post "/scores", params: {} }
+    context 'when an invalid request' do
+      before { post "/scores", params: {} }
 
-    #  it 'returns status code 422' do
-    #    expect(response).to have_http_status(422)
-    #  end
+      it 'returns status code 422' do
+        expect(response).to have_http_status(422)
+      end
 
-    #  it 'returns a failure message' do
-    #    expect(response.body).to match(/Validation failed: Name can't be blank/)
-    #  end
-    #end
+      it 'returns a failure message' do
+        expect(response.body).to include_json(
+          error: 'param is missing or the value is empty: player'
+        )
+      end
+    end
   end
 end

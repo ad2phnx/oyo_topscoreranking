@@ -1,9 +1,9 @@
 class ScoresController < ApplicationController
     before_action :set_score, only: [:show, :destroy]
 
-    #rescue_from ActionController::ParameterMissing do |e|
-    #    render json: { error: e.message }, status: :bad_request
-    #end
+    rescue_from ActionController::ParameterMissing do |e|
+        render json: { error: e.original_message }, status: :unprocessable_entity
+    end
 
     # GET /scores
     def index
@@ -18,7 +18,9 @@ class ScoresController < ApplicationController
 
     # POST /scores
     def create
-        @player = Player.where(name: params[:name]).first_or_create 
+        puts score_params
+        puts params[:player][:name]
+        @player = Player.where(name: params[:player][:name]).first_or_create 
         puts @player
         @score = @player.scores.create!(score_params)
         puts @score
@@ -29,6 +31,7 @@ class ScoresController < ApplicationController
 
     def score_params
         # Whitelist parameters
+        params.require(:player).permit(:name)
         params.permit(:score, :time)
     end
 
