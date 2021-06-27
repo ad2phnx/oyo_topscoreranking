@@ -10,6 +10,7 @@ require 'database_cleaner'
 require 'shoulda/matchers'
 require 'factory_bot_rails'
 require 'action_controller'
+require 'faker'
  
 # Requires supporting ruby files with custom matchers and macros, etc, in
 # spec/support/ and its subdirectories. Files matching `spec/**/*_spec.rb` are
@@ -76,10 +77,10 @@ RSpec.configure do |config|
   # https://relishapp.com/rspec/rspec-rails/docs
   config.infer_spec_type_from_file_location!
 
-  #config.include RequestSpecHelper
+  config.include RequestSpecHelper, type: :request
   #config.include ControllerSpecHelper
   # Filter lines from Rails gems in backtraces.
-  #config.filter_rails_from_backtrace!
+  config.filter_rails_from_backtrace!
   # arbitrary gems may also be filtered via:
   # config.filter_gems_from_backtrace("gem name")
 end
