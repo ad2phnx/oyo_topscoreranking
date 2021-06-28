@@ -6,4 +6,5 @@ RSpec.describe Score, type: :model do
   it { should validate_presence_of(:player) }
   it { should validate_presence_of(:score) }
   it { should validate_presence_of(:time) }
+
 end

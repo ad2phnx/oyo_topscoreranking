@@ -48,7 +48,7 @@ RSpec.describe "Scores", type: :request do
   end
 
   describe 'POST /scores' do
-    let(:valid_attributes) { { player: { name: 'John Smith'}, score: 45, time: 'January 1, 2021' } }
+    let(:valid_attributes) { { player: { name: 'John Smith'}, score: 45, time: '01-01-2021' } }
 
     context 'when request attributes are valid' do
       before { post "/scores", params: valid_attributes }
@@ -70,6 +70,14 @@ RSpec.describe "Scores", type: :request do
           error: 'param is missing or the value is empty: player'
         )
       end
+    end
+  end
+
+  describe 'DELETE /scores/:id' do
+    before { delete "/scores/#{id1}" }
+
+    it 'returns status code 204' do
+      expect(response).to have_http_status(204)
     end
   end
 end
