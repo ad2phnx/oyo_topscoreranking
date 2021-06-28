@@ -60,6 +60,7 @@ GEM
       minitest (>= 5.1)
       tzinfo (~> 2.0)
       zeitwerk (~> 2.3)
+    api-pagination (4.8.2)
     bootsnap (1.7.5)
       msgpack (~> 1.0)
     builder (3.2.4)
@@ -89,6 +90,18 @@ GEM
       activesupport (>= 5.2)
     i18n (1.8.10)
       concurrent-ruby (~> 1.0)
+    kaminari (1.2.1)
+      activesupport (>= 4.1.0)
+      kaminari-actionview (= 1.2.1)
+      kaminari-activerecord (= 1.2.1)
+      kaminari-core (= 1.2.1)
+    kaminari-actionview (1.2.1)
+      actionview
+      kaminari-core (= 1.2.1)
+    kaminari-activerecord (1.2.1)
+      activerecord
+      kaminari-core (= 1.2.1)
+    kaminari-core (1.2.1)
     listen (3.5.1)
       rb-fsevent (~> 0.10, >= 0.10.3)
       rb-inotify (~> 0.9, >= 0.9.10)
@@ -171,11 +184,8 @@ GEM
       activesupport (>= 4.0)
       sprockets (>= 3.0.0)
     thor (1.1.0)
-    timeliness (0.4.4)
     tzinfo (2.0.4)
       concurrent-ruby (~> 1.0)
-    validates_timeliness (5.0.0)
-      timeliness (>= 0.3.10, < 1)
     websocket-driver (0.7.5)
       websocket-extensions (>= 0.1.0)
     websocket-extensions (0.1.5)
@@ -185,12 +195,14 @@ PLATFORMS
   x86_64-linux
 
 DEPENDENCIES
+  api-pagination
   bootsnap (>= 1.4.4)
   byebug
   database_cleaner
   factory_bot_rails (~> 4.0)
   faker
   has_scope
+  kaminari
   listen (~> 3.3)
   pg (~> 1.1)
   puma (~> 5.0)
@@ -200,7 +212,6 @@ DEPENDENCIES
   shoulda-matchers (~> 3.1)
   spring
   tzinfo-data
-  validates_timeliness
 
 RUBY VERSION
    ruby 3.0.1p64

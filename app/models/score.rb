@@ -5,7 +5,7 @@ class Score < ApplicationRecord
   # validation
   validates_presence_of :player, :score, :time
   validates :score, numericality: { only_integer: true, greater_than: 0 }
-  #validates_datetime :time
+  validates_format_of :time, :with => /\A\d{4}\-(0?[1-9]|1[012])\-(0?[1-9]|[12][0-9]|3[01])\z/
 
   scope :by_player, -> (players) { where(player: players.split(',')) }
   scope :after_date, -> (date) { where('time >= ?', date) }

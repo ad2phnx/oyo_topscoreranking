@@ -49,6 +49,7 @@ RSpec.describe "Scores", type: :request do
 
   describe 'POST /scores' do
     let(:valid_attributes) { { player: { name: 'John Smith'}, score: 45, time: '01-01-2021' } }
+    let(:invalid_date_attribute) { { player: { name: 'John Smith'}, score: 45, time: '014.0133.20213' } }
 
     context 'when request attributes are valid' do
       before { post "/scores", params: valid_attributes }
@@ -68,6 +69,21 @@ RSpec.describe "Scores", type: :request do
       it 'returns a failure message' do
         expect(response.body).to include_json(
           error: 'param is missing or the value is empty: player'
+        )
+      end
+    end
+
+    context 'when wrong date format' do
+      before { post "/scores", params: invalid_date_attribute }
+
+      it 'returns status code 421' do
+        expect(response).to have_http_status(422)
+      end
+
+      it 'returns a failure message' do
+        puts response.body
+        expect(response.body).to include_json(
+          message: "Validation failed: Time can't be blank, Time is invalid"
         )
       end
     end

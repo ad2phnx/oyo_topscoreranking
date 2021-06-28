@@ -14,11 +14,7 @@ class ScoresController < ApplicationController
     # GET /scores
     def index
         @scores = apply_scopes(Score).all
-        @scopes = current_scopes
-        puts @scopes
-        #@scores = Score.all
-        #json_response(@scores)
-        json_response(@scores)
+        paginate json: @scores, per_page: 10
     end
 
     # GET /scores/:id
