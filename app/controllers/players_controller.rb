@@ -13,7 +13,7 @@ class PlayersController < ApplicationController
             top_score: @player.top_score,
             low_score: @player.low_score,
             avg_score: @player.average_score,
-            all_score: @player.scores
+            all_score: @player.scores.select(:score, :time).as_json(:except => :id)
         }
         json_response(@history)
     end

@@ -5,8 +5,13 @@ RSpec.describe "Players", type: :request do
   let!(:players) { create_list(:player, 10) }
   let(:player) { players.first }
   let(:player_id) { players.first.id }
-  let(:score1) { Score.create(player, score: 10, time: '2021-01-01')}
-  let(:score2) { Score.create(player, score: 100, time: '2021-04-20')}
+  let(:player2) { players.second }
+  let(:player2_id) { players.second.id }
+
+  before(:each) do
+    @score1 = Score.create(player: player, score: 10, time: '2021-06-27')
+    @score2 = Score.create(player: player, score: 100, time: '2021-04-20')
+  end
 
   # GET /players
   describe 'GET /players' do
@@ -36,12 +41,21 @@ RSpec.describe "Players", type: :request do
         expect(response).to have_http_status(200)
       end
 
-      it 'returns player history' do
-        puts json
-        expect(json['top_score']).not_to be_empty
-        expect(json['low_score']).not_to be_empty
-        expect(json['avg_score']).not_to be_empty
+      it 'returns player history with top/low/avg and scores list when scores exist' do
+        expect(json['top_score']).to eq(100)
+        expect(json['low_score']).to eq(10)
+        expect(json['avg_score']).to eq("55.0")
         expect(json['all_score']).not_to be_empty
+      end
+    end
+
+    context 'when the record exist but scores do not' do
+      let(:player_id) { player2_id }
+      it 'returns player history without top/low/avg and scores list' do
+        expect(json['top_score']).to be_nil
+        expect(json['low_score']).to be_nil
+        expect(json['avg_score']).to be_nil
+        expect(json['all_score']).to be_empty
       end
     end
 
